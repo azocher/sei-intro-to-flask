@@ -14,6 +14,11 @@ def multiply(num1, num2):
     result = num1 * num2
     return str(result)
 
-@app.route('/hello/<word>')
+@app.route('/hello/<name>', methods=["GET", "POST"])
 def hello(name):
-    return render_template("index.html", name=name)
+    if (request.method == "GET"):
+        return render_template("index.html", name=name)
+    elif (request.method == "POST"):
+        last_name = request.form['lastName']
+        full_name = name + " " + last_name
+        return render_template("hello.html", full_name=full_name)
